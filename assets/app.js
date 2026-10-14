@@ -1,0 +1,10 @@
+
+const menu=document.querySelector('#mobileMenu');document.querySelector('#menuBtn')?.addEventListener('click',()=>menu.classList.toggle('open'));
+const watch=new IntersectionObserver(items=>items.forEach(x=>{if(x.isIntersecting){x.target.classList.add('show');watch.unobserve(x.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(x=>watch.observe(x));
+function toast(message){const e=document.getElementById('toast');if(!e)return;e.textContent=message;e.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>e.style.display='none',4200)}
+document.querySelectorAll('[data-demo-form]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;toast('Demo only: your information was not submitted or saved.');form.reset()}));
+document.querySelectorAll('[data-track]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();document.getElementById('track-result')?.classList.remove('hidden');toast('Showing a sample request timeline — not a live lookup.')}));
+document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>{b.classList.remove('bg-[#102439]','text-white');b.classList.add('bg-white','text-[#435966]')});button.classList.add('bg-[#102439]','text-white');const k=button.dataset.filter;document.querySelectorAll('[data-category]').forEach(c=>c.classList.toggle('hidden',k!=='all'&&c.dataset.category!==k))}));
+document.querySelectorAll('.faq-button').forEach(b=>b.addEventListener('click',()=>b.closest('.faq').classList.toggle('open')));
+document.querySelectorAll('[data-panel]').forEach(b=>b.addEventListener('click',()=>{const name=b.dataset.panel;document.querySelectorAll('[data-panel]').forEach(v=>v.classList.toggle('active',v===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('hidden',x.id!==`panel-${name}`))}));
+document.querySelectorAll('[data-pay-demo]').forEach(b=>b.addEventListener('click',()=>toast('Demo only: payment checkout is not connected.')));
